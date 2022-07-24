@@ -8,7 +8,7 @@
 
                     <ul role="list" class="border-t border-b border-gray-200 divide-y divide-gray-200">
                         <li v-for="product in cart" :key="product.id" class="flex py-6 sm:py-10">
-                            <CartItem :product="product" :currency="country.sign" />
+                            <CartItem :product="product" :currency="country.sign" @remove="removeItem" />
                         </li>
                     </ul>
                 </section>
@@ -21,7 +21,7 @@
                     <dl class="mt-6 space-y-4">
                         <div class="flex items-center justify-between">
                             <dt class="text-sm text-gray-600">Subtotal</dt>
-                            <dd class="text-sm font-medium text-gray-900">{{ country.sign }}{{ total }}</dd>
+                            <dd class="text-sm font-medium text-gray-900">{{ country.sign }} {{ total }}</dd>
                         </div>
                         <div class="border-t border-gray-200 pt-4 flex items-center justify-between">
                             <dt class="text-sm text-gray-600">VAT Rate</dt>
@@ -29,13 +29,13 @@
                         </div>
                         <div class="border-t border-gray-200 pt-4 flex items-center justify-between">
                             <dt class="text-sm text-gray-600">VAT</dt>
-                            <dd class="text-sm font-medium text-gray-900">{{ country.sign }}{{ vatAmount }}</dd>
+                            <dd class="text-sm font-medium text-gray-900">{{ country.sign }} {{ vatAmount }}</dd>
                         </div>
 
 
                         <div class="border-t border-gray-200 pt-4 flex items-center justify-between">
                             <dt class="text-base font-medium text-gray-900">Order total</dt>
-                            <dd class="text-base font-medium text-gray-900">{{ country.sign }}{{ totalAmount }}</dd>
+                            <dd class="text-base font-medium text-gray-900">{{ country.sign }} {{ totalAmount }}</dd>
                         </div>
                     </dl>
 
@@ -51,7 +51,7 @@
 
 <script>
 import CartItem from '../components/cartItem.vue'
-import { mapGetters } from 'vuex'
+import { mapGetters, mapActions } from 'vuex'
 export default {
     components: {
         CartItem
@@ -68,6 +68,25 @@ export default {
         },
         totalAmount() {
             return Number((this.total + this.vatAmount).toFixed(2))
+        }
+    },
+    methods: {
+        ...mapActions({
+            removeItemFromCart: 'removeItemFromCart'
+        }),
+        removeItem(product) {
+            console.log(product);
+            let isConfirm = confirm('Are you sure you want to remove this item?')
+            if (isConfirm) {
+                this.removeItemFromCart(product.id)
+            }
+        }
+    },
+    watch: {
+        cart(newVal) {
+            if (newVal.length === 0) {
+                this.$router.push('/')
+            }
         }
     },
     mounted() {

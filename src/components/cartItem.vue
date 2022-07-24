@@ -11,7 +11,7 @@
     </div>
     <div class="relative pr-9 sm:grid sm:grid-cols-2 sm:gap-x-6 sm:pr-0">
       <div class="absolute -mt-6 right-0">
-        <button type="button" class="-m-2 p-2 inline-flex text-gray-400 hover:text-gray-500">
+        <button type="button" class="-m-2 p-2 inline-flex text-gray-400 hover:text-gray-500" @click="remove()">
           <span class="sr-only">Remove</span>
           <svg style="color: red" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor"
             class="bi bi-x-circle-fill" viewBox="0 0 16 16">
@@ -38,5 +38,10 @@ export default {
       default: '€'
     },
   },
+  methods:{
+    remove(){
+      this.$emit('remove', this.product)
+    }
+  }
 }
 </script>

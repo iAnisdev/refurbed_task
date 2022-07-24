@@ -5,7 +5,7 @@ export const getCartPrice = state => {
     state.cart.forEach(item => {
         total += item.price * item.quantity
     })
-    return total
+    return Number(total.toFixed(2))
 }
 export const getCartQuantity = state => {
     let total = 0

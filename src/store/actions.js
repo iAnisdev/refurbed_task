@@ -1,6 +1,12 @@
 export const updateCart = ({ commit }, cart) => {
     commit('SET_CART', cart)
 }
+
+export const removeItemFromCart = ({ state, commit }, id) => {
+    const updated_cart = state.cart.filter(item => item.id !== id)
+    commit('SET_CART', updated_cart)
+}
+
 export const updateProductStock = ({ state, commit }, id) => {
     let updated_products = state.products.map(item => {
         if (item.id === id) {

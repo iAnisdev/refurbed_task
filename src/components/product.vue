@@ -12,7 +12,7 @@
             <div class="absolute top-0 inset-x-0 h-72 rounded-lg p-4 flex items-end justify-end overflow-hidden">
                 <div aria-hidden="true"
                     class="absolute inset-x-0 bottom-0 h-36 bg-gradient-to-t from-black opacity-50" />
-                <p class="relative text-lg font-semibold text-white">{{ currency }}{{ product.price }}</p>
+                <p class="relative text-lg font-semibold text-white">{{ currency }} {{ product.price }}</p>
             </div>
         </div>
         <div class="mt-6">
