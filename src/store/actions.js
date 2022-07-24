@@ -1,3 +1,4 @@
+import API from "../plugins/API"
 export const updateCart = ({ commit }, cart) => {
     commit('SET_CART', cart)
 }
@@ -34,26 +35,12 @@ export const changeCountry = ({ commit }, country) => {
     commit('UPDATE_COUNTRY', country)
 }
 
-export const changeVatRate = ({ commit }, code) => {
-    var requestURL = "https://api.exchangerate.host/vat_rates";
-    var request = new XMLHttpRequest();
-    request.open("GET", requestURL);
-    request.responseType = "json";
-    request.send();
-    request.onload = function () {
-        var response = request.response;
-        commit('UPDATE_VAT_RATE', response.rates[code].standard_rate)
-    };
+export const changeVatRate = async ({ commit }, code) => {
+    let response =await API().get('/vat_rates')
+    commit('UPDATE_VAT_RATE',  response.data.rates[code].standard_rate)
 }
 
-export const changeExchangeRate = ({ commit }, { from, to }) => {
-    var requestURL = `https://api.exchangerate.host/convert?from=${from}&to=${to}`;
-    var request = new XMLHttpRequest();
-    request.open("GET", requestURL);
-    request.responseType = "json";
-    request.send();
-    request.onload = function () {
-        var response = request.response;
-        commit('UPDATE_EXCHANGE_RATE', response.info.rate)
-    };
+export const changeExchangeRate = async ({ commit }, { from, to }) => {
+    let response = await API().get(`/convert?from=${from}&to=${to}`)
+    commit('UPDATE_EXCHANGE_RATE', response.data.info.rate)
 }
