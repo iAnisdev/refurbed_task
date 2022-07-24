@@ -1,4 +1,4 @@
-export const SET_PRODUCTS = (state, updated_products) => {
+export const UPDATE_PRODUCTS = (state, updated_products) => {
     state.products = updated_products
 }
 

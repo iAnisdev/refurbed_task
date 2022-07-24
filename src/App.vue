@@ -37,42 +37,27 @@
       <hr />
       <p class="m-2">Net: 0</p>
       <p class="m-2">VAT: 0</p>
-      <p class="m-2 font-bold">Total: {{ total(cart) }}</p>
+      <p class="m-2 font-bold">Total: {{ total }}</p>
     </div>
   </main>
 </template>
 
 <script>
-import { mapGetters  } from 'vuex'
+import { mapGetters   } from 'vuex'
 import Product from './components/product.vue'
 export default {
   name: "App",
   components: {
     Product
   },
-  data: () => ({
-  }),
   computed: {
     ...mapGetters({
       products: 'getProducts',
-      cart: 'getCart'
+      cart: 'getCart',
+      total: 'getCartPrice'
     })
   },
   methods: {
-    addToCart(id) {
-      let product = this.products[id];
-      product.quantity = 1;
-      product.stock = product.stock - 1;
-      console.log(product);
-      this.cart.push(product);
-    },
-    total(products) {
-      var total = 0;
-      products.forEach((product) => {
-        total += product.price;
-      });
-      return total;
-    },
     vat_rates() {
       var requestURL = "https://api.exchangerate.host/vat_rates";
       var request = new XMLHttpRequest();
