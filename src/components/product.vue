@@ -1,20 +1,25 @@
 <template>
-    <div class="bg-white rounded-xl p-4 shadow-md">
-        <img class="w-32" :src="product.picture" />
-        <h3 class="text-xl mb-2">{{ product.name }}</h3>
-        <p class="mb-2">{{currency}} {{ product.price }}</p>
-        <button class="
-            py-2
-            px-4
-            bg-blue-500
-            hover:bg-blue-700
-            text-white
-            rounded-lg
-            shadow-md
-            float-right
-          " @click="addToCart(product)" :disabled="product.stock == 0">
-            Add to cart
-        </button>
+    <div>
+        <div class="relative">
+            <div class="relative w-full h-72 rounded-lg overflow-hidden">
+                <img :src="product.picture" :alt="product.picture" class="w-full h-full object-center" />
+            </div>
+            <div class="relative mt-4">
+                <h3 class="text-sm font-medium text-gray-900">{{ product.name }}</h3>
+            </div>
+            <div class="absolute top-0 inset-x-0 h-72 rounded-lg p-4 flex items-end justify-end overflow-hidden">
+                <div aria-hidden="true"
+                    class="absolute inset-x-0 bottom-0 h-36 bg-gradient-to-t from-black opacity-50" />
+                <p class="relative text-lg font-semibold text-white">{{ currency }}{{ product.price }}</p>
+            </div>
+        </div>
+        <div class="mt-6">
+
+            <button type="submit" @click="addToCart(product)"
+                class="mt-8 w-full bg-indigo-600 border border-transparent rounded-md py-3 px-8 flex items-center justify-center text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">Add
+                to bag</button>
+
+        </div>
     </div>
 </template>
 
