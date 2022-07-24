@@ -32,18 +32,18 @@
                     <dd class="mt-1 flex text-sm text-gray-900 sm:mt-0 sm:col-span-2">
                         <span class="flex-grow"></span>
                         <span class="ml-4 flex-shrink-0">
-                            0
+                            {{currency}} {{total}}
                         </span>
                     </dd>
                 </div>
             </dl>
             <dl class="divide-y divide-gray-200">
                 <div class="py-4 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4">
-                    <dt class="text-sm font-medium text-gray-500">Vat</dt>
+                    <dt class="text-sm font-medium text-gray-500">Vat ({{vat}}%)</dt>
                     <dd class="mt-1 flex text-sm text-gray-900 sm:mt-0 sm:col-span-2">
                         <span class="flex-grow"></span>
                         <span class="ml-4 flex-shrink-0">
-                            0
+                            {{currency}} {{vatAmount}}
                         </span>
                     </dd>
                 </div>
@@ -53,7 +53,7 @@
                         <dd class="mt-1 flex text-sm text-gray-900 sm:mt-0 sm:col-span-2">
                             <span class="flex-grow"></span>
                             <span class="ml-4 flex-shrink-0">
-                                {{ total }}
+                               {{currency}} {{ total }}
                             </span>
                         </dd>
                     </div>
@@ -67,11 +67,27 @@
 import { mapGetters } from 'vuex'
 export default {
     name: 'Cart',
+    props:{
+        currency: {
+            type: String,
+            default: 'EUR'
+        },
+        vat: {
+            type: Number,
+            default: 0
+        }
+    },
     computed: {
         ...mapGetters({
             cart: 'getCart',
             total: 'getCartPrice'
-        })
+        }),
+        vatAmount() {
+            return this.total * (this.vat / 100)
+        },
+        totalAmount () {
+            return this.total + this.vatAmount
+        }
     },
 
 }
