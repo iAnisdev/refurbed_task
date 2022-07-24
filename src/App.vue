@@ -14,31 +14,7 @@
     </header>
 
     <div class="grid grid-cols-3 gap-4 p-4 mb-4">
-      <div
-        class="bg-white rounded-xl p-4 shadow-md"
-        v-for="(product, index) in products"
-        :key="product.id"
-      >
-        <img class="w-32" :src="product.picture" />
-        <h3 class="text-xl mb-2">{{ product.name }}</h3>
-        <p class="mb-2">{{ product.price }}</p>
-        <button
-          class="
-            py-2
-            px-4
-            bg-blue-500
-            hover:bg-blue-700
-            text-white
-            rounded-lg
-            shadow-md
-            float-right
-          "
-          @click="addToCart(index)"
-          :disabled="product.stock < 0"
-        >
-          Add to cart
-        </button>
-      </div>
+      <Product v-for="product in products" :key="product.id" :product="product" />
     </div>
     <div class="p-4 m-4 bg-white shadow-md">
       <h2 class="text-2xl mb-2">Cart</h2>
@@ -68,8 +44,12 @@
 </template>
 
 <script>
+import Product from './components/product.vue'
 export default {
   name: "App",
+  components: {
+    Product
+  },
   data: () => ({
     cart: [],
     products: [
