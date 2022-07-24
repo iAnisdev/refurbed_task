@@ -83,10 +83,10 @@ export default {
             total: 'getCartPrice'
         }),
         vatAmount() {
-            return this.total * (this.vat / 100)
+            return Number((this.total * this.vat / 100).toFixed(2))
         },
         totalAmount () {
-            return this.total + this.vatAmount
+            return Number((this.total + this.vatAmount).toFixed(2))
         }
     },
 

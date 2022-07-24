@@ -15,7 +15,7 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
+import { mapGetters  , mapActions} from 'vuex'
 import Product from './components/product.vue'
 import Cart from './components/cart.vue'
 export default {
@@ -53,14 +53,25 @@ export default {
   },
   watch:{
     country: {
-      handler(){
+      handler(newval , oldval){
         this.vat_rates();
+        if(oldval){
+        this.exchangeRates(oldval.currency , newval.currency);
+        }
       },
       deep: true,
       immediate: true
+    },
+    exchange_rate: {
+      handler(newval){
+        this.updateStorePrices(newval);
+      }
     }
   },
   methods: {
+    ...mapActions({
+      updateStorePrices: 'updateStorePrices'
+    }),
     vat_rates() {
       let _self = this
       var requestURL = "https://api.exchangerate.host/vat_rates";
@@ -74,8 +85,9 @@ export default {
         _self.vat_rate = response.rates[_self.country.code].standard_rate
       };
     },
-    exchangeRates() {
-      var requestURL = "https://api.exchangerate.host/latest";
+    exchangeRates(from , to) {
+      let _self = this
+      var requestURL = `https://api.exchangerate.host/convert?from=${from}&to=${to}`;
       var request = new XMLHttpRequest();
       request.open("GET", requestURL);
       request.responseType = "json";
@@ -83,7 +95,7 @@ export default {
 
       request.onload = function () {
         var response = request.response;
-        console.log(response);
+        _self.exchange_rate = response.info.rate
       };
     },
   }
