@@ -3,7 +3,6 @@
         <img class="w-32" :src="product.picture" />
         <h3 class="text-xl mb-2">{{ product.name }}</h3>
         <p class="mb-2">{{ product.price }}</p>
-        <p class="mb-2">{{ product.stock }}</p>
         <button class="
             py-2
             px-4

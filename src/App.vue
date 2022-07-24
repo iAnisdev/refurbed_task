@@ -15,46 +15,23 @@
     <div class="grid grid-cols-3 gap-4 p-4 mb-4">
       <Product v-for="product in products" :key="product.id" :product="product" />
     </div>
-    <div class="p-4 m-4 bg-white shadow-md">
-      <h2 class="text-2xl mb-2">Cart</h2>
-      <hr />
-      <table class="table-fixed">
-        <thead>
-          <tr>
-            <th class="w-1/2 text-left p-2">Product</th>
-            <th class="w-1/4 p-2">Quantity</th>
-            <th class="w-1/4 text-right p-2">Price</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr v-for="product in cart" :key="product.id">
-            <td class="p-2">{{ product.name }}</td>
-            <td class="p-2">{{ product.quantity }}</td>
-            <td class="p-2">{{ product.price }}</td>
-          </tr>
-        </tbody>
-      </table>
-      <hr />
-      <p class="m-2">Net: 0</p>
-      <p class="m-2">VAT: 0</p>
-      <p class="m-2 font-bold">Total: {{ total }}</p>
-    </div>
+    <Cart />
   </main>
 </template>
 
 <script>
 import { mapGetters   } from 'vuex'
 import Product from './components/product.vue'
+import Cart from './components/cart.vue'
 export default {
   name: "App",
   components: {
-    Product
+    Product,
+    Cart
   },
   computed: {
     ...mapGetters({
-      products: 'getProducts',
-      cart: 'getCart',
-      total: 'getCartPrice'
+      products: 'getProducts'
     })
   },
   methods: {
