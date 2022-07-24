@@ -6,6 +6,8 @@
             </div>
             <div class="relative mt-4">
                 <h3 class="text-sm font-medium text-gray-900">{{ product.name }}</h3>
+                <p class="mt-1 text-sm text-gray-500">{{ product.stock }} available</p>
+
             </div>
             <div class="absolute top-0 inset-x-0 h-72 rounded-lg p-4 flex items-end justify-end overflow-hidden">
                 <div aria-hidden="true"
@@ -14,11 +16,9 @@
             </div>
         </div>
         <div class="mt-6">
-
-            <button type="submit" @click="addToCart(product)"
+            <button type="submit" @click="addToCart(product)" :disabled="product.stock <= 0"
                 class="mt-8 w-full bg-indigo-600 border border-transparent rounded-md py-3 px-8 flex items-center justify-center text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">Add
                 to bag</button>
-
         </div>
     </div>
 </template>
@@ -65,6 +65,7 @@ export default {
                     id: product.id,
                     name: product.name,
                     price: product.price,
+                    picture: product.picture,
                     quantity: 1
                 }];
                 this.updateCart(updated_cart);

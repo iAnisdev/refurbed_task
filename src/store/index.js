@@ -25,7 +25,10 @@ export default new Vuex.Store({
         price: 275,
         stock: 5,
       },
-    ]
+    ],
+    country: {},
+    vat_rate: 0,
+    exchange_rate: 0
   },
   actions,
   getters,

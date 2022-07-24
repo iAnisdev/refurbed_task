@@ -9,8 +9,10 @@
     "clean": "rm -rf node_modules/"
   },
   "dependencies": {
+    "@heroicons/vue": "^1.0.6",
     "core-js": "^3.6.5",
     "vue": "^2.6.11",
+    "vue-router": "^3.0.1",
     "vuex": "^3.4.0"
   },
   "devDependencies": {
